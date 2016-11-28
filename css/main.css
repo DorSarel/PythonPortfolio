@@ -1,0 +1,230 @@
+
+@import 'https://fonts.googleapis.com/css?family=Lobster|Source+Code+Pro';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 1em;
+    font-family: 'Source Code Pro', monospace;
+    line-height: 1.3;
+}
+
+h1,
+h2 {
+    font-family: 'Lobster', cursive;
+}
+
+
+/* === Header === */
+
+
+header {
+    background: rgba(98 ,187 ,248 , .9);
+    padding: .5em .75em;
+    text-align: center;
+}
+
+.fixed {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background: rgb(0 ,0 ,0);
+}
+
+nav {
+    margin-top: 15px;
+}
+
+nav > h2 a {
+    text-decoration: none;
+    color: white;
+    margin-top: 0;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline-block;
+}
+
+li > a{
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px 12px;
+    font-size: 1.125em;
+    font-weight: 600;
+}
+
+li > a:first-child {
+    padding-left: 0;
+}
+
+
+/* === General Style === */
+#about,
+.main {
+    padding: 5em 2em 2em;
+}
+
+
+/* === about === */
+
+#about {
+    margin-bottom: 50px;
+}
+
+#about h1 {
+    font-size: 2em;
+}
+
+
+#about p {
+    font-size: 1.2em;
+}
+
+/* === Main === */
+
+.main {
+    background: rgb(98 ,187 ,248);
+    color: white;
+}
+
+/* == CSS Snippet == */
+
+.python-script {
+    position: relative;
+    padding: 0.5em .75em;
+    width: 85%;
+    margin-bottom: 40px;
+}
+
+.python-script::after {
+    text-align: center;
+    position: absolute;
+    background: #999;
+    top: 17px;
+    right: -28px;
+    width: 120px;
+    height: 1.6em;
+    font-size: 1.1em;
+    content: "CODE";
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.outer, .outer:hover {
+    -webkit-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+}
+
+.outer {
+    color: #000;
+    background: #EEE;
+    overflow: hidden;
+}
+
+.outer:hover {
+    color: #FFF;
+    background: #666;
+    overflow: hidden;
+}
+
+.inner {
+    max-height: 150px;
+    overflow: auto;
+    -webkit-transition: max-height 1.7s ease;
+    transition: max-height 1.7s ease;
+}
+
+.outer:hover > .inner {
+    max-height: 1200px;
+    -webkit-transition: max-height 3.5s ease 0.7s;
+    transition: max-height 3.5s ease 0.7s;
+}
+/* == /CSS Snippet == */
+
+/* === Footer === */
+
+footer {
+    text-align: center;
+    padding: 1.75em;
+}
+
+.social .social-icon {
+    margin-right: 5px;
+    font-size: 1.85em;
+    color: black;
+}
+
+.social .social-icon:first-child:hover {
+    color: #3b5998; 
+}
+
+
+.social .social-icon:last-child {
+    margin-right: 0;
+}
+
+
+.social .social-icon:last-child:hover {
+    color: #287bbc;
+}
+
+
+/* === Media Queries === */
+
+@media (min-width:600px) {
+    
+    .container {
+        width: 90%;
+        max-width: 1150px;
+        margin: 0 auto;
+    }
+    
+    nav > h2 a {
+        float: left;
+        font-size: 2.225rem;
+    }
+    
+    ul {
+        float: right;
+    }
+    
+    li > a {
+        font-size: 1.45em;
+    }
+    
+    #about h1 {
+        font-size: 2.5em;
+    }
+    
+    .python-exp > h1 {
+        font-size: 2.6em;
+    }
+}
+
+
+
+
+
+/* === ClearFix === */
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */

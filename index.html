@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Python Portfolio Website</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://use.fontawesome.com/6e86ad03b3.js"></script>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+    <head>
+    
+    <body>
+        <header>
+            <div class="container clearfix">
+                <nav>
+                    <h2 class="brand"><a href="#">DorSarel WebDevelopment</a></h2>
+                    
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#Portfolio">Portfolio</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <section id="about">
+            <div class="container">
+                <h1>Who Am I?</h1>
+                <p>I am beginner web developer, who want to become better and gain experience in the web technology.<br>
+                This will be my first working website, after 3 monthes of learning.<br>
+                In my learning journey i learnt: <strong>HTML, CSS, JavaScript and JQuery</strong>.
+                </p>
+                
+                <p>While learning i thought to myself "about what I will build a website for practice?"<br>
+                I searched a little bit at google for the answer, and saw that most of the answers are: <strong>Build Portfolio Website.</strong><br>
+                But I don't have any projects to show on the site. So i decided to build one for some of my python scripts!</p>
+                
+                <p>For now, the scripts are written in the HTML structure, this is the reason for the few shown scripts. I am hoping to change it in the near future.<br>
+                Hope that you will enjoy my site!</p>
+            </div>
+        </section>
+        
+        <div id="Portfolio" class="main">
+            <div class="container">
+                <div class="python-exp">
+                    <h1>Releases Script</h1>
+                    <p>The script runs each 30 seconds and check for new message,in one of the folders in the mail.<br>
+                    if it finds that new message arrived to the folder<br>
+                    it using the ICQ "Ho-Ho" sound to alert the user.</p>
+                    <div class="python-script outer">
+                        <div class="inner">
+                            <code>
+                                import win32com.client as win32 <br>
+                                import time <br>
+                                import os <br>
+                                <br>
+                                class Release: <br>
+                                    <br>
+                                    lastCount = 0<br>
+                                    <br>
+                                    def countReleases(self):<br>
+                                        <br>
+                                        outlook = win32.gencache.EnsureDispatch("Outlook.Application")<br>
+                                        mapi = outlook.GetNamespace("MAPI")<br>
+                                        <br>
+                                        inbox = mapi.GetDefaultFolder(win32.constants.olFolderInbox)<br>
+                                        releases_foler = inbox.Folders.Item("Releases")<br>
+                                        releases_msg = releases_foler.Items<br>
+                                        current_Count = releases_msg.Count<br>
+                                        <br>
+                                        if self.lastCount == 0:<br>
+                                            print "New Releases: " + str(self.lastCount)<br>
+                                            self.lastCount = current_Count<br>
+                                            <br>
+                                        else:<br>
+                                            if current_Count > self.lastCount:<br>
+                                                print "New Rlease added!!"<br>
+                                                print "New Releases: " + str(current_Count - self.lastCount)<br>
+                                                <br>
+                                            else:<br>
+                                                print "No new releases"<br>
+                                                <br>
+                                        self.Update()<br>
+                                        <br>
+                                    def Update(self):<br>
+                                        print "Next update will be in 30 seconds"<br>
+                                        time.sleep(30)<br>
+                                        os.system("cls")<br>
+                                        time.sleep(0.3)<br>
+                                        self.countReleases()<br>
+                                        <br>
+                                        <br>
+                                        
+                                def Main():<br>
+                                    <br>
+                                    r = Release()<br>
+                                    r.countReleases()<br>
+                                    <br>
+                                if __name__ == "__main__":<br>
+                                    Main()<br>
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="python-exp">
+                    <h1>Hangman Script</h1>
+                    <p>Remember when in free period at school, someone offered you to play hangman.<br>
+                    when he had to hide a word and you had to guess it by guessing its letters, <br>
+                    and if you got wrong he started to drew a man hanging?... I know you remember!<br>
+                    did you enjoyed it? So this is the script for you!</p>
+                    <div class="python-script outer">
+                        <div class="inner">
+                            <code>
+                                #Import Section<br>
+                                import random<br>
+                                import re<br>
+                                import sys<br>
+    <br>
+                                #Constants<br>
+                                <br>
+                                PLAYER_NUM_OF_GUESSES = 12<br>
+                                CATEGORY              = {"movies" : ["harry-potter","brigde-of-spies","avengers","captain-america","deadpool","spiderman"],<br>
+                                                          "fruits" : ["banana","mango","pineapple","orange"],<br>
+                                                          "countries" : ["israel","egypt","united-state","germany","italy"]}<br>
+    <br>
+                                GAME_MODE             = "Whice Category Do You Prefer?\n1. Movies\n2. Fruits\n3. Countries"<br>
+                                DIVIDER               = "#########################################\nYou have 12 guesses"<br>
+                                WORD_TO_GUESS         = "Word To Guess:\n"<br>
+                                TRY                   = "\nTry to guess"<br>
+                                TRY_AGAIN             = "Please try again."<br>
+                                NEW_LINE              = "\n"<br>
+                                THANK                 = "Thank You For Playing"<br>
+                                GREAT                 = "\nGreat Job"<br>
+                                WRONG                 = "\nWrong Guess"<br>
+                                GUESS_CORRECT         = "Wow!! You Guessed The Word!"<br>
+                                WELCOME               = "Welcome To The Hangman Game!!\nYour Target Is To Guess The Hidden Word" + "\nPay Attention - You Dont Have As Many Guesses As You Want\nHave Fun!"<br>
+    <br>
+                                #Global Variable<br>
+                                count_guess = 0<br>
+                                char_list = ["_"]<br>
+    <br>
+    <br>
+                                #Defining function to check the guesses the user used.<br>
+                                def check_num_of_guesses(count):<br>
+                                    if count == PLAYER_NUM_OF_GUESSES:<br>
+                                        print "You are out of guesses! Loser!"<br>
+                                        return True<br>
+                                    return False<br>
+    <br>
+        <br>                              
+                                #Defining function to initalize the word to guess.    <br>
+                                def word_selection():<br>
+                                    print GAME_MODE<br>
+                                    mode = raw_input("Which One?")<br>
+                                    <br>
+                                    if mode == "1":<br>
+                                        com_word = random.choice(CATEGORY["movies"]) <br>
+                                    elif mode == "2":<br>
+                                        com_word = random.choice(CATEGORY["fruits"])<br>
+                                    elif mode == "3":<br>
+                                        com_word = random.choice(CATEGORY["countries"])<br>
+                                    else:<br>
+                                        print "Game mode not selected."<br>
+                                        sys.exit()    <br>
+                                    return com_word<br>
+                                    <br>
+                                    
+                                    <br>
+                                    
+                                #Defining function to check if the user already used the entered char.<br>
+                                def IsUsed(char):<br>
+                                    global count_guess<br>
+                                    <br>
+                                    used_char = []<br>
+                                    if char == "":<br>
+                                        count_guess = count_guess + 1<br>
+                                        <br>
+                                        if check_num_of_guesses(count_guess):<br>
+                                            print THANK <br>
+                                        else:<br>
+                                            print "You Used",count_guess,"Guesses."<br>
+                                            <br>
+                                    elif char in used_char:<br>
+                                        print TRY_AGAIN<br>
+                                        user_guess = raw_input("Enter char: ")<br>
+                                        IsUsed(user_guess)<br>
+                                    else:<br>
+                                        used_char.append(char)<br>
+                                        <br>
+                                        <br>
+                                #Defining function that prompt the hidden list to the user.<br>
+                                def prompt_missing(word_to_guess):<br>
+                                    global char_list<br>
+                                    char_list = char_list * len(word_to_guess)<br>
+                                    print WORD_TO_GUESS<br>
+                                    check_for_dash(word_to_guess)<br>
+                                    print char_list<br>
+    <br>
+        <br>                               
+                                #Defining function to verify if the guessed word is correct<br>
+                                def check_word(list):<br>
+                                    complete_word = "".join(list)<br>
+                                    return complete_word<br>
+                                    <br>
+    <br>
+                                    
+
+    <br>
+                                #Defining function to check for spaces in word and replace with dashes<br>
+                                def check_for_dash(word):<br>
+                                    global char_list<br>
+                                    <br>
+                                    <br>
+                                    if re.search("-+",word):<br>
+                                        dash_pos = 0<br>
+                                        dash_count = word.count("-")<br>
+                                        dash_pos = word.find("-",dash_pos)<br>
+                                        char_list[dash_pos] = "-"<br>
+                                        while dash_count > 1:<br>
+                                            dash_pos = word.find("-", dash_pos + 1)<br>
+                                            char_list[dash_pos] = "-"<br>
+                                            dash_count = dash_count - 1<br>
+        <br>                            
+    <br>
+                                #Defining function update_char to check if the char is in the char_list<br>
+                                def update_char(word,user_guess):<br>
+                                    global char_list<br>
+                                    <br>
+                                    pos = 0<br>
+                                    char_count = word.count(user_guess)<br>
+                                    pos = word.index(user_guess,pos)<br>
+                                    char_list[pos] = user_guess<br>
+                                    <br>
+                                    while char_count > 1:<br>
+                                        pos = word.index(user_guess, pos + 1)<br>
+                                        char_list[pos] = user_guess<br>
+                                        char_count = char_count - 1<br>
+    <br>
+        <br>                                
+                                    
+                                #Defining function to check for char in the missing list<br>
+                                def check_char():<br>
+                                    global char_list,count_guess<br>
+                                    <br>
+                                    #Using new_game function<br>
+                                    new_game()<br>
+                                    #Genrating random word to guess<br>
+                                    word_to_guess = word_selection()<br>
+                                    #Creating list of chars from the word<br>
+                                    hidden_char_list = list(word_to_guess)<br>
+                                    #Prompt the chars to complete to the player<br>
+                                    prompt_missing(word_to_guess)<br>
+                                    <br>
+                                    user_guess = raw_input("Enter your guess: ")<br>
+                                    IsUsed(user_guess)<br>
+                                    while count_guess < PLAYER_NUM_OF_GUESSES:<br>
+                                        if user_guess in hidden_char_list:<br>
+                                            update_char(word_to_guess,user_guess)<br>
+                                            new_word = check_word(char_list)<br>
+                                            <br>
+                                            if new_word == word_to_guess:<br>
+                                                print NEW_LINE<br>
+                                                print GUESS_CORRECT<br>
+                                                print char_list<br>
+                                                <br>
+                                                play_again = raw_input("Do you want to play again?")<br>
+                                                if play_again.lower() in ["yes","y"]:<br>
+                                                    check_char()<br>
+                                                else:<br>
+                                                    print THANK<br>
+                                                    sys.exit()<br>
+                                            print NEW_LINE<br>
+                                            print char_list<br>
+                                            print GREAT<br>
+                                            user_guess = raw_input("Enter your guess: ")<br>
+                                            IsUsed(user_guess)<br>
+                                        else:<br>
+                                            print NEW_LINE<br>
+                                            print WRONG<br>
+                                            print char_list<br>
+                                            count_guess = count_guess + 1<br>
+                                            <br>
+                                            if check_num_of_guesses(count_guess):<br>
+                                                print "The word is: " + word_to_guess<br>
+                                                play_again = raw_input("Do you want to play again?")<br>
+                                                if play_again.lower() in ["yes","y"]:<br>
+                                                    check_char()<br>
+                                                else:<br>
+                                                    print THANK<br>
+                                                    sys.exit()<br>
+                                            print "You Used",count_guess,"Guesses."<br>
+                                            user_guess = raw_input("Enter your guess: ")<br>
+                                            IsUsed(user_guess)<br>
+                                    <br>
+                                     <br>
+                                #Defining function to initalize the variables before game start<br>
+                                def new_game():<br>
+                                    global count_guess,char_list<br>
+                                    count_guess = 0<br>
+                                    char_list = ["_"]<br>
+    <br>
+    <br>
+                                #Defining main function to control the flow of the program<br>
+                                def main():<br>
+                                    print WELCOME<br>
+                                    print DIVIDER<br>
+                                    check_char()<br>
+                                            <br>
+                                if __name__ == '__main__':<br>
+                                    main()<br>
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="python-exp">
+                    <h1>CopyFolders Script</h1>
+                    <p>The script purpose is to copy entire folder from one host to another.<br>
+                    The script gets the name of the folder, 2 destinations and list of hosts and get a connection to each one.<br>
+                    while in connection the script check if the folder already exists on the host.<br>
+                    If exists - it deletes the folder and copy it again. Else - you can figure it out :)</p>
+                    <div class="python-script outer">
+                        <div class="inner">
+                            <code>
+                                import subprocess, os, shutil<br>
+                                <br>
+                                flag = "Copied to all!"<br>
+                                global failed<br>
+
+                                def separate_slots(listwithslots):<br>
+                                    j=0<br>
+                                    list = []<br>
+                                    <br>
+                                    <br>
+                                    for i in listwithslots:<br>
+                                        list.append([])<br>
+                                        list[j].append(i.rpartition(",")[0])<br>
+                                        list[j].append(i.rpartition(",")[2])<br>
+                                        j=j+1<br>
+                                    return list<br>
+                                <br>
+                                <br>
+                                def delete_folder(full_dst_path):<br>
+                                    <br>
+                                    shutil.rmtree(full_dst_path)<br>
+                                    <br>
+                                    <br>
+
+                                def copy_folder(list,src_path,folder_name,dst_path):<br>
+                                    <br>
+                                    global flag, failed<br>
+                                    failed = []<br>
+                                    list = separate_slots(list)<br>
+                                    lastSetup = None<br>
+                                    <br>
+                                    #Create the full path to the folder - send the folder<br>
+                                    folder_path = src_path + "\\" + folder_name<br>
+                                    <br>
+                                    if not os.path.isdir(folder_path):<br>
+                                        flag = "Folder doesn't exists"<br>
+                                        return flag<br>
+                                    <br>
+                                    #Iterate througe the list to find each setup<br>
+                                    for host,slot in list:  <br>
+                                     <br>
+                                        if host == lastSetup:<br>
+                                            continue<br>
+                                        <br>
+                                        else:<br>
+                                            cmd_command = "net use \\\\" + host + "\\c /user:USER PASSWORD"<br>
+                                            <br>    
+                                            try:<br>
+                                                subprocess.call(cmd_command,creationflags=0x08000000)<br>
+                                                print "Connected"<br>
+                                            except:<br>
+                                                failed.append(host)<br>
+                                                continue<br>
+                                                
+                                            full_dst_path = "\\\\" + host + "\\" + dst_path + folder_name<br>
+                                            #print "path created"<br>
+                                            if os.path.isdir(full_dst_path):<br>
+                                                <br>
+                                                delete_folder(full_dst_path)<br>
+                                                   <br>
+                                                try:<br>
+                                                    shutil.copytree(folder_path,full_dst_path)<br>
+                                                    #print "Sent"<br>
+                                                    lastSetup = host<br>
+                                                except:<br>
+                                                    failed.append(host)<br>
+                                                    continue<br>
+                                            else:<br>
+                                                <br>
+                                                #Create the full path to the folder - send the folder<br>
+                                                #folder_path = src_path + "\\" + folder_name<br>
+                                                try:<br>
+                                                    shutil.copytree(folder_path,full_dst_path)<br>
+                                                    #print "Sent"<br>
+                                                    lastSetup = host    <br>
+                                                except:<br>
+                                                    #print "Failed"<br>
+                                                    failed.append(host)<br>
+                                                    continue<br>
+                                                    <br>
+                                    if len(failed) != 0:<br>
+                                        flag = "Failed On: "<br>
+                                        <br>
+                                        for iter in xrange(len(failed)):<br>
+                                            flag = flag + failed[iter] + " "<br>
+                                    <br>
+                                    <br>
+                                
+                                copy_folder(list_of_setups,src_path,folder_name,dst_path)
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="container">
+                <div class="social">
+                    <a class="social-icon" href="https://www.facebook.com/dor.sarel" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                    <a class="social-icon" href="https://il.linkedin.com/in/dor-sarel-242769102" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                </div>
+                <p>&copy; 2016 Dor Sarel.</p>
+            </div>
+        </footer>
+        
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/scroll.js"></script>
+    </body>
+</html>
